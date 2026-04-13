@@ -3,12 +3,15 @@ name: VITE MPA Despliegue de Portal a Github Pages
 on:
   push:
     branches:
-      - main
+      - main  
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+env:
+  DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL }}
 
 concurrency:
   group: "pages"
@@ -18,47 +21,31 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }} # Corregido para usar el ID de abajo
     runs-on: ubuntu-latest
-
     steps:
       - name: Clonar el Repositorio
         uses: actions/checkout@v4
 
       - name: Instalar Nodejs
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 # Versión estable
         with:
-          node-version: "20"
+          node-version: '20' # Versión estable
 
       - name: Instalar las Dependencias del Proyecto
         run: npm install
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-
-      - name: Asegurar el 404 fallback
-        run: cp ./dist/index.html ./dist/404.html
+      - name: Compilar la página para distribución
+        run: npm run build
 
       - name: Configura Github Pages
         uses: actions/configure-pages@v5
 
       - name: Subir los compilados (artefactos) a GP
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # Versión compatible
         with:
-          path: "./dist"
+          path: './dist'
 
       - name: Publicar Github Pages
-        id: deployment
+        id: deployment # Este es el ID que conecta con la URL de arriba
         uses: actions/deploy-pages@v4
