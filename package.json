@@ -15,5 +15,8 @@
     "vite": "^8.0.4",
     "vite-plugin-handlebars": "^2.0.0",
     "vite-plugin-purgecss": "^0.2.13"
+  },
+  "dependencies": {
+    "glob": "^13.0.6"
   }
 }
