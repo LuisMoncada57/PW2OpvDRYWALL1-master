@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => ({
 
   build: {
     cssMinify: true,
-    cssCodeSplit: false, // ✅ un solo archivo CSS
+    cssCodeSplit: false, 
     rollupOptions: {
       input: {
         main: 'index.html',
