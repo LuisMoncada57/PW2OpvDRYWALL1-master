@@ -3,7 +3,7 @@ import purgecss from 'vite-plugin-purgecss'
 import handlebars from 'vite-plugin-handlebars'
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/PW2OpvDRYWALL1/' : '/',
+  base: command === 'build' ? '/PW2OpvDRYWALL1-master/' : '/',
 
   build: {
     cssMinify: true,
